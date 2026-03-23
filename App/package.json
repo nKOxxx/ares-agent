@@ -1,16 +1,10 @@
 {
   "name": "ares-agent",
   "version": "1.0.0",
-  "description": "Multi-Agent Orchestrator for OpenClaw",
+  "description": "Multi-Agent Orchestrator for parallel AI agent spawning",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "electron": "^32.3.3"
-  }
+  "dependencies": {}
 }
