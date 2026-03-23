@@ -5,557 +5,210 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚡ ARES Agent</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-tertiary: #1a1a24;
-            --accent-cyan: #00d4ff;
-            --accent-yellow: #ffd700;
-            --accent-green: #10b981;
-            --accent-red: #ef4444;
-            --accent-orange: #f59e0b;
-            --text-primary: #ffffff;
-            --text-secondary: #9ca3af;
-            --border: #2a2a3a;
+            --bg-base: #09090b;
+            --bg-surface: #121214;
+            --bg-elevated: #1a1a1e;
+            --bg-hover: #242428;
+            --border: #2a2a2e;
+            --border-subtle: #1e1e22;
+            --accent: #22d3ee;
+            --accent-dim: #0891b2;
+            --accent-glow: rgba(34, 211, 238, 0.15);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
         }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+            background: var(--bg-base);
             color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Header */
-        header {
-            background: var(--bg-secondary);
-            padding: 20px 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .logo {
-            font-size: 32px;
-        }
-        
-        .title-group h1 {
-            font-size: 20px;
-            font-weight: 600;
-        }
-        
-        .title-group p {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        
-        .header-actions {
-            margin-left: auto;
-            display: flex;
-            gap: 10px;
-        }
-        
-        /* Main */
-        main {
-            flex: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Toolbar */
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        button {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
             font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        
-        button:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-primary);
-            border-color: var(--accent-cyan);
-        }
-        
-        button.primary {
-            background: var(--accent-cyan);
-            color: var(--bg-primary);
-            border-color: var(--accent-cyan);
-        }
-        
-        button.primary:hover {
-            background: #00b8e6;
-        }
-        
-        button.danger:hover {
-            background: var(--accent-red);
-            border-color: var(--accent-red);
-        }
-        
-        /* Agents Grid */
-        .agents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .agent-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-        }
-        
-        .agent-card.running {
-            border-color: var(--accent-orange);
-        }
-        
-        .agent-card.completed {
-            border-color: var(--accent-green);
-        }
-        
-        .agent-card.failed {
-            border-color: var(--accent-red);
-        }
-        
-        .agent-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--text-secondary);
-        }
-        
-        .status-dot.running {
-            background: var(--accent-orange);
-            animation: pulse 1.5s infinite;
-        }
-        
-        .status-dot.completed {
-            background: var(--accent-green);
-        }
-        
-        .status-dot.failed {
-            background: var(--accent-red);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .agent-name {
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        .agent-task {
-            color: var(--text-secondary);
-            font-size: 13px;
             line-height: 1.5;
-            margin-bottom: 15px;
         }
-        
-        .agent-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid var(--border);
-        }
-        
-        .agent-status {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .agent-status.running { color: var(--accent-orange); }
-        .agent-status.completed { color: var(--accent-green); }
-        .agent-status.failed { color: var(--accent-red); }
-        
-        .agent-time {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-        
-        .remove-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 18px;
-            padding: 5px;
-            border-radius: 4px;
-        }
-        
-        .remove-btn:hover {
-            background: var(--accent-red);
-            color: white;
-        }
-        
-        /* Empty State */
-        .empty-state {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            color: var(--text-secondary);
-        }
-        
-        .empty-state .icon {
-            font-size: 64px;
-        }
-        
-        .empty-state h2 {
-            color: var(--text-primary);
-            font-size: 20px;
-        }
-        
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }
-        
-        .modal {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 30px;
-            width: 500px;
-            max-width: 90%;
-        }
-        
-        .modal h2 {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        
-        .modal input, .modal textarea {
-            width: 100%;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        .modal input:focus, .modal textarea:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-        }
-        
-        .modal textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-        
-        /* Settings */
-        .settings-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .settings-row label {
-            width: 100px;
-        }
-        
-        .settings-row input {
-            flex: 1;
-        }
-        
-        /* Log Viewer */
-        .log-viewer {
-            background: #000;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: 12px;
-            max-height: 300px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            color: var(--accent-green);
-        }
+        .app { display: grid; grid-template-columns: 240px 1fr 280px; height: 100vh; }
+        .sidebar { background: var(--bg-surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+        .logo-icon { width: 24px; height: 24px; background: linear-gradient(135deg, var(--accent), var(--accent-dim)); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .sidebar-nav { padding: 12px 8px; flex: 1; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; color: var(--text-secondary); cursor: pointer; transition: all 0.15s; font-size: 13px; }
+        .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .nav-item.active { background: var(--accent-glow); color: var(--accent); }
+        .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
+        .agent-count { font-size: 12px; color: var(--text-muted); }
+        .main { display: flex; flex-direction: column; background: var(--bg-base); min-width: 0; }
+        .main-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); }
+        .page-title { font-size: 16px; font-weight: 600; }
+        .header-actions { display: flex; gap: 8px; }
+        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; background: var(--bg-elevated); color: var(--text-primary); }
+        .btn:hover { background: var(--bg-hover); }
+        .btn-primary { background: var(--accent); color: var(--bg-base); }
+        .btn-primary:hover { background: #06b6d4; box-shadow: 0 0 20px var(--accent-glow); }
+        .content { flex: 1; padding: 24px; overflow-y: auto; }
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: var(--text-muted); }
+        .empty-icon { width: 64px; height: 64px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 15px; font-weight: 500; color: var(--text-secondary); margin-bottom: 4px; }
+        .agent-list { display: flex; flex-direction: column; gap: 8px; }
+        .agent-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.15s; }
+        .agent-card:hover { border-color: var(--border); background: var(--bg-elevated); }
+        .agent-card.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-glow); }
+        .agent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .agent-name { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 14px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); }
+        .status-dot.running { background: var(--warning); animation: pulse 1.5s infinite; }
+        .status-dot.completed { background: var(--success); }
+        .status-dot.failed { background: var(--error); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .status-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--bg-hover); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-badge.running { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .status-badge.completed { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .agent-task { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .agent-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--text-muted); }
+        .panel { background: var(--bg-surface); border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+        .panel-header { padding: 16px; border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+        .panel-content { flex: 1; padding: 16px; overflow-y: auto; }
+        .activity-item { padding: 12px 0; border-bottom: 1px solid var(--border-subtle); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-time { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+        .activity-text { font-size: 13px; color: var(--text-secondary); }
+        .activity-text strong { color: var(--text-primary); font-weight: 500; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.2s; }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; width: 480px; max-width: 90%; transform: scale(0.95); transition: transform 0.2s; }
+        .modal-overlay.visible .modal { transform: scale(1); }
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+        .modal-title { font-size: 16px; font-weight: 600; }
+        .modal-body { padding: 24px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--text-secondary); }
+        .form-input { width: 100%; background: var(--bg-base); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; color: var(--text-primary); transition: border-color 0.15s; }
+        .form-input:focus { outline: none; border-color: var(--accent); }
+        .form-input::placeholder { color: var(--text-muted); }
+        textarea.form-input { min-height: 100px; resize: vertical; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 4px; }
     </style>
 </head>
 <body>
-    <header>
-        <span class="logo">⚡</span>
-        <div class="title-group">
-            <h1>ARES Agent</h1>
-            <p id="agent-count">0 agents</p>
-        </div>
-        <div class="header-actions">
-            <button onclick="refreshAgents()">↻ Refresh</button>
-            <button onclick="openSettings()" class="secondary">⚙ Settings</button>
-        </div>
-    </header>
-    
-    <main>
-        <div class="toolbar">
-            <button onclick="openNewTask()" class="primary">+ Spawn Agent</button>
-            <button onclick="collectResults()">📦 Collect Results</button>
-            <button onclick="removeCompleted()">🗑 Clear Completed</button>
-        </div>
-        
-        <div id="agents-container" class="agents-grid">
-            <!-- Agents will be rendered here -->
-        </div>
-        
-        <div id="empty-state" class="empty-state" style="display: none;">
-            <span class="icon">💻</span>
-            <h2>No Agents Running</h2>
-            <p>Spawn agents to work on your tasks in parallel</p>
-            <button onclick="openNewTask()" class="primary">+ Spawn Agent</button>
-        </div>
-    </main>
-    
-    <!-- New Task Modal -->
-    <div id="new-task-modal" class="modal-overlay" style="display: none;">
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <span>ARES</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active"><span>◉</span><span>Agents</span></div>
+                <div class="nav-item"><span>⚙</span><span>Settings</span></div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="agent-count"><strong id="total-agents">0</strong> agents</div>
+            </div>
+        </aside>
+        <main class="main">
+            <header class="main-header">
+                <h1 class="page-title">Agents</h1>
+                <div class="header-actions">
+                    <button class="btn" onclick="refresh()">↻ Refresh</button>
+                    <button class="btn btn-primary" onclick="openModal()">+ New Agent</button>
+                </div>
+            </header>
+            <div class="content" id="content">
+                <div class="empty-state">
+                    <div class="empty-icon">💻</div>
+                    <h3>No Agents Running</h3>
+                    <p>Spawn an agent to get started</p>
+                </div>
+            </div>
+        </main>
+        <aside class="panel">
+            <div class="panel-header">Activity</div>
+            <div class="panel-content" id="activity">
+                <div style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 13px;">No activity yet</div>
+            </div>
+        </aside>
+    </div>
+    <div class="modal-overlay" id="modal">
         <div class="modal">
-            <h2>⚡ Spawn New Agent</h2>
-            <input type="text" id="task-name" placeholder="Task name (e.g., Build Argus Feature)">
-            <textarea id="task-description" placeholder="Describe what this agent should do..."></textarea>
-            <div class="modal-actions">
-                <button onclick="closeNewTask()">Cancel</button>
-                <button onclick="spawnAgent()" class="primary">Spawn</button>
+            <div class="modal-header"><h2 class="modal-title">⚡ New Agent</h2></div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Task Name</label>
+                    <input type="text" class="form-input" id="task-name" placeholder="e.g., Build Argus Feature">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input" id="task-desc" placeholder="Describe what this agent should do..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="spawnAgent()">Spawn Agent</button>
             </div>
         </div>
     </div>
-    
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="modal-overlay" style="display: none;">
-        <div class="modal">
-            <h2>⚙ Settings</h2>
-            <div class="settings-row">
-                <label>Workspace:</label>
-                <input type="text" id="workspace-path" placeholder="/path/to/workspace">
-            </div>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 10px;">
-                Agents will clone and work in this directory.
-            </p>
-            <div class="modal-actions">
-                <button onclick="closeSettings()">Close</button>
-                <button onclick="saveSettings()" class="primary">Save</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // State
         let agents = [];
-        let settings = {
-            workspace: localStorage.getItem('ares-workspace') || (process.env.HOME + '/Projects')
-        };
-        
-        // Load agents from storage
-        function loadAgents() {
+        let activities = [];
+        let selectedAgent = null;
+        function loadState() {
             const stored = localStorage.getItem('ares-agents');
             agents = stored ? JSON.parse(stored) : [];
-            renderAgents();
+            const storedActivities = localStorage.getItem('ares-activities');
+            activities = storedActivities ? JSON.parse(storedActivities) : [];
+            render();
         }
-        
-        // Save agents to storage
-        function saveAgents() {
+        function saveState() {
             localStorage.setItem('ares-agents', JSON.stringify(agents));
-            renderAgents();
+            localStorage.setItem('ares-activities', JSON.stringify(activities));
         }
-        
-        // Render agents
-        function renderAgents() {
-            const container = document.getElementById('agents-container');
-            const emptyState = document.getElementById('empty-state');
-            const countEl = document.getElementById('agent-count');
-            
-            countEl.textContent = `${agents.length} agent${agents.length === 1 ? '' : 's'}`;
-            
+        function render() {
+            document.getElementById('total-agents').textContent = agents.length;
+            const content = document.getElementById('content');
             if (agents.length === 0) {
-                container.style.display = 'none';
-                emptyState.style.display = 'flex';
-                return;
+                content.innerHTML = '<div class="empty-state"><div class="empty-icon">💻</div><h3>No Agents Running</h3><p>Spawn an agent to get started</p></div>';
+            } else {
+                content.innerHTML = '<div class="agent-list">' + agents.map(agent => '<div class="agent-card ' + (selectedAgent === agent.id ? 'active' : '') + '" onclick="selectAgent(\'' + agent.id + '\')"><div class="agent-header"><div class="agent-name"><span class="status-dot ' + agent.status + '"></span>' + agent.name + '</div><span class="status-badge ' + agent.status + '">' + agent.status + '</span></div><p class="agent-task">' + agent.task + '</p><div class="agent-meta"><span>◷ ' + (agent.started || 'just now') + '</span><span>' + (agent.branch || 'main') + '</span></div></div>').join('') + '</div>';
             }
-            
-            container.style.display = 'grid';
-            emptyState.style.display = 'none';
-            
-            container.innerHTML = agents.map(agent => `
-                <div class="agent-card ${agent.status}">
-                    <button class="remove-btn" onclick="removeAgent('${agent.id}')">×</button>
-                    <div class="agent-header">
-                        <span class="status-dot ${agent.status}"></span>
-                        <span class="agent-name">${agent.name}</span>
-                    </div>
-                    <p class="agent-task">${agent.task}</p>
-                    <div class="agent-footer">
-                        <span class="agent-status ${agent.status}">${agent.status}</span>
-                        <span class="agent-time">${agent.started || ''}</span>
-                    </div>
-                </div>
-            `).join('');
+            const activityEl = document.getElementById('activity');
+            if (activities.length === 0) {
+                activityEl.innerHTML = '<div style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 13px;">No activity yet</div>';
+            } else {
+                activityEl.innerHTML = activities.map(a => '<div class="activity-item"><div class="activity-time">' + a.time + '</div><div class="activity-text">' + a.text + '</div></div>').join('');
+            }
         }
-        
-        // Spawn agent
+        function selectAgent(id) { selectedAgent = selectedAgent === id ? null : id; render(); }
+        function openModal() { document.getElementById('modal').classList.add('visible'); document.getElementById('task-name').focus(); }
+        function closeModal() { document.getElementById('modal').classList.remove('visible'); document.getElementById('task-name').value = ''; document.getElementById('task-desc').value = ''; }
         function spawnAgent() {
             const name = document.getElementById('task-name').value.trim();
-            const task = document.getElementById('task-description').value.trim() || name;
-            
-            if (!name) {
-                alert('Please enter a task name');
-                return;
-            }
-            
-            const agent = {
-                id: Date.now().toString(),
-                name: name,
-                task: task,
-                status: 'running',
-                started: new Date().toLocaleTimeString()
-            };
-            
+            const task = document.getElementById('task-desc').value.trim() || name;
+            if (!name) { alert('Please enter a task name'); return; }
+            const agent = { id: Date.now().toString(), name: name, task: task, status: 'running', started: new Date().toLocaleTimeString(), branch: 'agent/' + name.toLowerCase().replace(/\s+/g, '-') };
             agents.push(agent);
-            saveAgents();
-            closeNewTask();
-            
-            // Simulate work - in real impl, this would call the backend
+            addActivity('Agent <strong>' + name + '</strong> spawned');
+            saveState();
+            closeModal();
+            render();
             setTimeout(() => {
                 const idx = agents.findIndex(a => a.id === agent.id);
-                if (idx >= 0) {
-                    agents[idx].status = 'completed';
-                    saveAgents();
-                }
+                if (idx >= 0) { agents[idx].status = 'completed'; addActivity('Agent <strong>' + name + '</strong> completed'); saveState(); render(); }
             }, 3000 + Math.random() * 5000);
         }
-        
-        // Remove agent
-        function removeAgent(id) {
-            agents = agents.filter(a => a.id !== id);
-            saveAgents();
-        }
-        
-        // Remove completed
-        function removeCompleted() {
-            agents = agents.filter(a => a.status !== 'completed');
-            saveAgents();
-        }
-        
-        // Collect results
-        function collectResults() {
-            const completed = agents.filter(a => a.status === 'completed');
-            if (completed.length === 0) {
-                alert('No completed agents to collect from');
-                return;
-            }
-            alert(`Collected results from ${completed.length} agent(s)`);
-            // In real impl, would gather actual results
-        }
-        
-        // Refresh
-        function refreshAgents() {
-            loadAgents();
-        }
-        
-        // Modals
-        function openNewTask() {
-            document.getElementById('new-task-modal').style.display = 'flex';
-            document.getElementById('task-name').focus();
-        }
-        
-        function closeNewTask() {
-            document.getElementById('new-task-modal').style.display = 'none';
-            document.getElementById('task-name').value = '';
-            document.getElementById('task-description').value = '';
-        }
-        
-        function openSettings() {
-            document.getElementById('settings-modal').style.display = 'flex';
-            document.getElementById('workspace-path').value = settings.workspace;
-        }
-        
-        function closeSettings() {
-            document.getElementById('settings-modal').style.display = 'none';
-        }
-        
-        function saveSettings() {
-            settings.workspace = document.getElementById('workspace-path').value;
-            localStorage.setItem('ares-workspace', settings.workspace);
-            closeSettings();
-        }
-        
-        // Init
-        loadAgents();
-        
-        // Close modals on outside click
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeNewTask();
-                closeSettings();
-            }
-            if (e.key === 'n' && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                openNewTask();
-            }
-        });
+        function addActivity(text) { activities.unshift({ time: new Date().toLocaleTimeString(), text: text }); activities = activities.slice(0, 50); }
+        function refresh() { loadState(); }
+        document.getElementById('modal').addEventListener('click', (e) => { if (e.target.classList.contains('modal-overlay')) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); if ((e.metaKey || e.ctrlKey) && e.key === 'n') { e.preventDefault(); openModal(); } });
+        loadState();
     </script>
 </body>
 </html>
