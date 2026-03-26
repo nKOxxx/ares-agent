@@ -109,7 +109,7 @@ const stmts = {
   getRepo: db.prepare('SELECT * FROM repos WHERE id = ?'),
   getAllRepos: db.prepare('SELECT * FROM repos ORDER BY created_at DESC'),
   deleteRepo: db.prepare('DELETE FROM repos WHERE id = ?'),
-  updateRepoSync: db.prepare('UPDATE repos SET last_synced = datetime("now") WHERE id = ?'),
+  updateRepoSync: db.prepare(`UPDATE repos SET last_synced = datetime('now') WHERE id = ?`),
 
   // Workspaces
   insertWorkspace: db.prepare('INSERT INTO workspaces (id, repo_id, name, branch, worktree_path) VALUES (?, ?, ?, ?, ?)'),
@@ -120,11 +120,11 @@ const stmts = {
   deleteWorkspace: db.prepare('DELETE FROM workspaces WHERE id = ?'),
 
   // Agent runs
-  insertRun: db.prepare('INSERT INTO agent_runs (id, workspace_id, model, task, status, started_at) VALUES (?, ?, ?, ?, "running", datetime("now"))'),
+  insertRun: db.prepare(`INSERT INTO agent_runs (id, workspace_id, model, task, status, started_at) VALUES (?, ?, ?, ?, 'running', datetime('now'))`),
   getRun: db.prepare('SELECT * FROM agent_runs WHERE id = ?'),
   getRunsByWorkspace: db.prepare('SELECT * FROM agent_runs WHERE workspace_id = ? ORDER BY started_at DESC'),
-  getActiveRuns: db.prepare('SELECT ar.*, w.name as workspace_name, w.branch, r.name as repo_name FROM agent_runs ar JOIN workspaces w ON ar.workspace_id = w.id JOIN repos r ON w.repo_id = r.id WHERE ar.status = "running"'),
-  updateRunStatus: db.prepare('UPDATE agent_runs SET status = ?, completed_at = datetime("now"), exit_code = ? WHERE id = ?'),
+  getActiveRuns: db.prepare(`SELECT ar.*, w.name as workspace_name, w.branch, r.name as repo_name FROM agent_runs ar JOIN workspaces w ON ar.workspace_id = w.id JOIN repos r ON w.repo_id = r.id WHERE ar.status = 'running'`),
+  updateRunStatus: db.prepare(`UPDATE agent_runs SET status = ?, completed_at = datetime('now'), exit_code = ? WHERE id = ?`),
   updateRunPid: db.prepare('UPDATE agent_runs SET pid = ? WHERE id = ?'),
   updateRunTokens: db.prepare('UPDATE agent_runs SET input_tokens = ?, output_tokens = ?, cost_estimate = ? WHERE id = ?'),
 
@@ -143,7 +143,7 @@ const stmts = {
   insertReview: db.prepare('INSERT INTO reviews (id, workspace_id, diff_summary, files_changed, insertions, deletions) VALUES (?, ?, ?, ?, ?, ?)'),
   getReview: db.prepare('SELECT * FROM reviews WHERE id = ?'),
   getReviewByWorkspace: db.prepare('SELECT * FROM reviews WHERE workspace_id = ? ORDER BY created_at DESC LIMIT 1'),
-  updateReviewStatus: db.prepare('UPDATE reviews SET status = ?, merged_at = CASE WHEN ? = "merged" THEN datetime("now") ELSE merged_at END WHERE id = ?'),
+  updateReviewStatus: db.prepare(`UPDATE reviews SET status = ?, merged_at = CASE WHEN ? = 'merged' THEN datetime('now') ELSE merged_at END WHERE id = ?`),
 
   // Dashboard
   getDashboard: db.prepare(`
