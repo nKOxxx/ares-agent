@@ -77,9 +77,9 @@ function groupMessages(lines: OutputLine[]): MessageGroup[] {
 function UserMessage({ lines }: { lines: OutputLine[] }) {
   return (
     <div className="flex justify-end mb-4">
-      <div className="max-w-[80%] bg-[--color-ares-surface] border border-[--color-ares-border] rounded-2xl rounded-br-md px-4 py-3">
+      <div className="max-w-[80%] bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-2xl rounded-br-md px-4 py-3">
         {lines.map((line, i) => (
-          <p key={i} className="text-[13px] text-[--color-ares-text] whitespace-pre-wrap break-words">
+          <p key={i} className="text-[13px] text-[--color-hermes-text] whitespace-pre-wrap break-words">
             {highlightMentions(line.content)}
           </p>
         ))}
@@ -96,7 +96,7 @@ function AgentMessage({ group }: { group: MessageGroup }) {
       {/* Summary bar */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex items-center gap-2 text-[12px] text-[--color-ares-text-secondary] hover:text-[--color-ares-text] mb-2 transition-colors"
+        className="flex items-center gap-2 text-[12px] text-[--color-hermes-text-secondary] hover:text-[--color-hermes-text] mb-2 transition-colors"
       >
         <ChevronDownIcon />
         {group.toolCallCount > 0 && (
@@ -115,7 +115,7 @@ function AgentMessage({ group }: { group: MessageGroup }) {
 
       {/* Expanded content */}
       {expanded && (
-        <div className="space-y-1.5 ml-1 pl-3 border-l-2 border-[--color-ares-border]">
+        <div className="space-y-1.5 ml-1 pl-3 border-l-2 border-[--color-hermes-border]">
           {group.lines.map((line, i) => (
             <AgentOutputLine key={i} line={line} />
           ))}
@@ -124,7 +124,7 @@ function AgentMessage({ group }: { group: MessageGroup }) {
 
       {/* Always show last result/text line as preview */}
       {!expanded && (
-        <div className="ml-1 pl-3 border-l-2 border-[--color-ares-border]">
+        <div className="ml-1 pl-3 border-l-2 border-[--color-hermes-border]">
           {group.lines.filter((l) => l.type === 'result' || l.type === 'text').slice(-1).map((line, i) => (
             <AgentOutputLine key={i} line={line} />
           ))}
@@ -136,11 +136,11 @@ function AgentMessage({ group }: { group: MessageGroup }) {
 
 function AgentOutputLine({ line }: { line: OutputLine }) {
   const typeConfig: Record<string, { icon: React.ReactNode; color: string }> = {
-    tool_use: { icon: <TerminalIcon />, color: 'text-[--color-ares-accent]' },
-    error: { icon: <span className="text-[10px] font-bold">!</span>, color: 'text-[--color-ares-red]' },
-    system: { icon: <span className="text-[10px]">sys</span>, color: 'text-[--color-ares-text-muted]' },
-    result: { icon: <FileIcon />, color: 'text-[--color-ares-green]' },
-    text: { icon: null, color: 'text-[--color-ares-text]' },
+    tool_use: { icon: <TerminalIcon />, color: 'text-[--color-hermes-accent]' },
+    error: { icon: <span className="text-[10px] font-bold">!</span>, color: 'text-[--color-hermes-red]' },
+    system: { icon: <span className="text-[10px]">sys</span>, color: 'text-[--color-hermes-text-muted]' },
+    result: { icon: <FileIcon />, color: 'text-[--color-hermes-green]' },
+    text: { icon: null, color: 'text-[--color-hermes-text]' },
   };
 
   const config = typeConfig[line.type] || typeConfig.text;
@@ -159,11 +159,11 @@ function AgentOutputLine({ line }: { line: OutputLine }) {
                 let lineColor = '';
                 let bg = '';
                 if (l.startsWith('+')) {
-                  lineColor = 'text-[--color-ares-green]';
-                  bg = 'bg-[--color-ares-diff-add]';
+                  lineColor = 'text-[--color-hermes-green]';
+                  bg = 'bg-[--color-hermes-diff-add]';
                 } else if (l.startsWith('-')) {
-                  lineColor = 'text-[--color-ares-red]';
-                  bg = 'bg-[--color-ares-diff-del]';
+                  lineColor = 'text-[--color-hermes-red]';
+                  bg = 'bg-[--color-hermes-diff-del]';
                 }
                 return (
                   <span key={i} className={`${lineColor} ${bg} block px-1`}>{l}{'\n'}</span>
@@ -185,7 +185,7 @@ function highlightMentions(text: string): React.ReactNode {
   const parts = text.split(/(@\w[\w./\-]*)/g);
   return parts.map((part, i) =>
     part.startsWith('@') ? (
-      <span key={i} className="text-[--color-ares-accent] font-medium bg-[--color-ares-accent-dim] rounded px-0.5">
+      <span key={i} className="text-[--color-hermes-accent] font-medium bg-[--color-hermes-accent-dim] rounded px-0.5">
         {part}
       </span>
     ) : (
@@ -261,7 +261,7 @@ export default function ChatView() {
 
   if (!selectedId || !workspace) {
     return (
-      <div className="flex-1 flex items-center justify-center text-[--color-ares-text-muted] text-sm">
+      <div className="flex-1 flex items-center justify-center text-[--color-hermes-text-muted] text-sm">
         Select a workspace from the sidebar
       </div>
     );
@@ -276,12 +276,12 @@ export default function ChatView() {
         className="flex-1 overflow-y-auto px-6 py-4"
       >
         {groups.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-[--color-ares-text-muted]">
+          <div className="flex flex-col items-center justify-center h-full text-[--color-hermes-text-muted]">
             <div className="text-4xl mb-3 opacity-30">{'>'}_</div>
             <div className="text-sm">No activity yet. Spawn an agent to get started.</div>
             <button
               onClick={() => setSpawnModalOpen(true)}
-              className="mt-4 px-4 py-2 text-sm bg-[--color-ares-accent] text-black font-medium rounded-lg hover:brightness-110 transition-all"
+              className="mt-4 px-4 py-2 text-sm bg-[--color-hermes-accent] text-black font-medium rounded-lg hover:brightness-110 transition-all"
             >
               Spawn Agent
             </button>
@@ -301,7 +301,7 @@ export default function ChatView() {
       {showScrollBtn && (
         <button
           onClick={scrollToBottom}
-          className="absolute bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-[--color-ares-surface] border border-[--color-ares-border] rounded-full text-[12px] text-[--color-ares-text-secondary] hover:text-[--color-ares-text] shadow-lg transition-colors"
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-full text-[12px] text-[--color-hermes-text-secondary] hover:text-[--color-hermes-text] shadow-lg transition-colors"
         >
           <ArrowDownIcon />
           Scroll to bottom
@@ -309,7 +309,7 @@ export default function ChatView() {
       )}
 
       {/* Composer area */}
-      <div className="border-t border-[--color-ares-border-subtle] bg-[--color-ares-bg] px-4 py-3">
+      <div className="border-t border-[--color-hermes-border-subtle] bg-[--color-hermes-bg] px-4 py-3">
         <div className="flex items-end gap-2">
           <div className="flex-1 relative">
             <input
@@ -317,7 +317,7 @@ export default function ChatView() {
               value={taskInput}
               onChange={(e) => setTaskInput(e.target.value)}
               placeholder="Ask to make changes, @mention files, run /commands"
-              className="w-full bg-[--color-ares-surface] border border-[--color-ares-border] rounded-xl px-4 py-2.5 text-[13px] text-[--color-ares-text] placeholder-[--color-ares-text-muted] focus:outline-none focus:border-[--color-ares-accent]/50 transition-colors"
+              className="w-full bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-xl px-4 py-2.5 text-[13px] text-[--color-hermes-text] placeholder-[--color-hermes-text-muted] focus:outline-none focus:border-[--color-hermes-accent]/50 transition-colors"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
@@ -325,7 +325,7 @@ export default function ChatView() {
                 }
               }}
             />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-[--color-ares-text-muted] font-mono">
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-[--color-hermes-text-muted] font-mono">
               {'\u2318'}L to focus
             </span>
           </div>
@@ -337,7 +337,7 @@ export default function ChatView() {
             {/* Model selector badge */}
             <button
               onClick={() => setSpawnModalOpen(true)}
-              className="flex items-center gap-1 text-[11px] font-medium text-[--color-ares-accent] bg-[--color-ares-accent-dim] rounded-full px-2 py-0.5 hover:brightness-125 transition-all"
+              className="flex items-center gap-1 text-[11px] font-medium text-[--color-hermes-accent] bg-[--color-hermes-accent-dim] rounded-full px-2 py-0.5 hover:brightness-125 transition-all"
             >
               <span className="text-xs">&#10022;</span>
               {workspace.model || 'Sonnet'}
@@ -349,14 +349,14 @@ export default function ChatView() {
               <button
                 onClick={handleKill}
                 disabled={killing}
-                className="text-[11px] text-[--color-ares-red] hover:text-red-300 disabled:opacity-50 transition-colors"
+                className="text-[11px] text-[--color-hermes-red] hover:text-red-300 disabled:opacity-50 transition-colors"
               >
                 {killing ? 'Stopping...' : '\u25A0 Stop'}
               </button>
             )}
             <button
               onClick={() => setSpawnModalOpen(true)}
-              className="text-[11px] text-[--color-ares-text-muted] hover:text-[--color-ares-text] transition-colors"
+              className="text-[11px] text-[--color-hermes-text-muted] hover:text-[--color-hermes-text] transition-colors"
             >
               Spawn Agent
             </button>

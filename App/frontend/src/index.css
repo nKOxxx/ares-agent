@@ -2,22 +2,22 @@
 
 @theme {
   /* Conductor-inspired warm dark palette */
-  --color-ares-bg: #1a1b1e;
-  --color-ares-sidebar: #141516;
-  --color-ares-surface: #1e2022;
-  --color-ares-surface-hover: #242628;
-  --color-ares-border: #2d2f33;
-  --color-ares-border-subtle: #232529;
-  --color-ares-text: #e4e4e7;
-  --color-ares-text-secondary: #8b8d93;
-  --color-ares-text-muted: #5a5c63;
-  --color-ares-accent: #22d3ee;
-  --color-ares-accent-dim: rgba(34, 211, 238, 0.15);
-  --color-ares-green: #22c55e;
-  --color-ares-red: #ef4444;
-  --color-ares-yellow: #eab308;
-  --color-ares-diff-add: rgba(34, 197, 94, 0.1);
-  --color-ares-diff-del: rgba(239, 68, 68, 0.1);
+  --color-hermes-bg: #1a1b1e;
+  --color-hermes-sidebar: #141516;
+  --color-hermes-surface: #1e2022;
+  --color-hermes-surface-hover: #242628;
+  --color-hermes-border: #2d2f33;
+  --color-hermes-border-subtle: #232529;
+  --color-hermes-text: #e4e4e7;
+  --color-hermes-text-secondary: #8b8d93;
+  --color-hermes-text-muted: #5a5c63;
+  --color-hermes-accent: #22d3ee;
+  --color-hermes-accent-dim: rgba(34, 211, 238, 0.15);
+  --color-hermes-green: #22c55e;
+  --color-hermes-red: #ef4444;
+  --color-hermes-yellow: #eab308;
+  --color-hermes-diff-add: rgba(34, 197, 94, 0.1);
+  --color-hermes-diff-del: rgba(239, 68, 68, 0.1);
 }
 
 * {
@@ -28,8 +28,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
-  background: var(--color-ares-bg);
-  color: var(--color-ares-text);
+  background: var(--color-hermes-bg);
+  color: var(--color-hermes-text);
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

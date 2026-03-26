@@ -12,7 +12,7 @@ function GitBranchIcon() {
 
 function CheckIcon() {
   return (
-    <svg className="w-3.5 h-3.5 text-[--color-ares-green]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg className="w-3.5 h-3.5 text-[--color-hermes-green]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
     </svg>
   );
@@ -20,7 +20,7 @@ function CheckIcon() {
 
 function SpinnerIcon() {
   return (
-    <svg className="w-3.5 h-3.5 animate-spin text-[--color-ares-yellow]" fill="none" viewBox="0 0 24 24">
+    <svg className="w-3.5 h-3.5 animate-spin text-[--color-hermes-yellow]" fill="none" viewBox="0 0 24 24">
       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
     </svg>
@@ -51,11 +51,11 @@ export default function TopBar() {
   if (!workspace) return null;
 
   return (
-    <div className="flex items-center justify-between h-10 px-4 border-b border-[--color-ares-border-subtle] bg-[--color-ares-bg] flex-shrink-0">
+    <div className="flex items-center justify-between h-10 px-4 border-b border-[--color-hermes-border-subtle] bg-[--color-hermes-bg] flex-shrink-0">
       {/* Left: workspace identifier */}
       <div className="flex items-center gap-2 min-w-0">
         <GitBranchIcon />
-        <span className="text-[13px] text-[--color-ares-text] truncate">
+        <span className="text-[13px] text-[--color-hermes-text] truncate">
           {workspace.name}
         </span>
         {isCompleted && <CheckIcon />}
@@ -64,7 +64,7 @@ export default function TopBar() {
 
       {/* Center: branch pill */}
       <div className="flex items-center gap-2">
-        <span className="text-[12px] font-mono bg-[--color-ares-surface] border border-[--color-ares-border] rounded-full px-2.5 py-0.5 text-[--color-ares-text-secondary]">
+        <span className="text-[12px] font-mono bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-full px-2.5 py-0.5 text-[--color-hermes-text-secondary]">
           /{workspace.branch || 'main'}
         </span>
       </div>
@@ -72,7 +72,7 @@ export default function TopBar() {
       {/* Right: status + actions */}
       <div className="flex items-center gap-3 text-[12px]">
         {run && (
-          <span className={`flex items-center gap-1.5 ${isRunning ? 'text-[--color-ares-yellow]' : 'text-[--color-ares-text-secondary]'}`}>
+          <span className={`flex items-center gap-1.5 ${isRunning ? 'text-[--color-hermes-yellow]' : 'text-[--color-hermes-text-secondary]'}`}>
             {isRunning && <SpinnerIcon />}
             {run.model && (
               <span className="font-medium">{run.model}</span>
@@ -80,11 +80,11 @@ export default function TopBar() {
           </span>
         )}
         {repo && (
-          <span className="text-[--color-ares-text-muted]">{repo.name}</span>
+          <span className="text-[--color-hermes-text-muted]">{repo.name}</span>
         )}
         <button
           onClick={() => fetchDashboard()}
-          className="p-1 text-[--color-ares-text-muted] hover:text-[--color-ares-text] transition-colors rounded"
+          className="p-1 text-[--color-hermes-text-muted] hover:text-[--color-hermes-text] transition-colors rounded"
           title="Refresh"
         >
           <RefreshIcon />

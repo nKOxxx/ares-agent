@@ -1,5 +1,5 @@
 {
-  "name": "ares-agent",
+  "name": "hermes",
   "version": "3.0.0",
   "description": "Personal multi-agent orchestrator — parallel Claude, GPT & MiniMax agents in isolated git worktrees",
   "main": "main.js",

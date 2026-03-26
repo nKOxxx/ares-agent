@@ -11,7 +11,7 @@ function createWindow() {
     height: 920,
     minWidth: 1100,
     minHeight: 700,
-    title: 'ARES Agent',
+    title: 'Hermes',
     backgroundColor: '#09090b',
     titleBarStyle: 'hiddenInset',
     trafficLightPosition: { x: 16, y: 16 },
@@ -41,7 +41,7 @@ function createTray() {
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAADRJREFUOI1jYBhowEjh//8GBgYGBobmpsb/DAwMDAwcnFwMDAwMDP///2dgYGBg+P+fYcABAGfZCAdBiVYRAAAAAElFTkSuQmCC'
   );
   tray = new Tray(icon);
-  tray.setToolTip('ARES Agent');
+  tray.setToolTip('Hermes');
   tray.on('click', () => {
     if (mainWindow) {
       mainWindow.show();
@@ -55,7 +55,7 @@ function createTray() {
 app.whenReady().then(async () => {
   // Start backend server
   await start();
-  console.log(`[ARES] Backend ready on port ${PORT}`);
+  console.log(`[Hermes] Backend ready on port ${PORT}`);
 
   createWindow();
   createTray();
@@ -75,5 +75,5 @@ app.on('activate', () => {
 });
 
 app.on('before-quit', () => {
-  console.log('[ARES] Shutting down...');
+  console.log('[Hermes] Shutting down...');
 });

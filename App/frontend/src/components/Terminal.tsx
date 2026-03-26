@@ -6,11 +6,11 @@ interface TerminalProps {
 }
 
 const typeStyles: Record<string, { text: string; prefix: string }> = {
-  text: { text: 'text-[--color-ares-text]', prefix: '' },
-  tool_use: { text: 'text-[--color-ares-accent]', prefix: '$ ' },
-  error: { text: 'text-[--color-ares-red]', prefix: '! ' },
-  system: { text: 'text-[--color-ares-text-muted]', prefix: '# ' },
-  result: { text: 'text-[--color-ares-green]', prefix: '> ' },
+  text: { text: 'text-[--color-hermes-text]', prefix: '' },
+  tool_use: { text: 'text-[--color-hermes-accent]', prefix: '$ ' },
+  error: { text: 'text-[--color-hermes-red]', prefix: '! ' },
+  system: { text: 'text-[--color-hermes-text-muted]', prefix: '# ' },
+  result: { text: 'text-[--color-hermes-green]', prefix: '> ' },
 };
 
 export default function Terminal({ lines }: TerminalProps) {
@@ -29,7 +29,7 @@ export default function Terminal({ lines }: TerminalProps) {
       className="h-full overflow-y-auto bg-[#131416] p-3 font-mono text-[12px] leading-5"
     >
       {lines.length === 0 ? (
-        <div className="text-[--color-ares-text-muted] flex items-center h-full">
+        <div className="text-[--color-hermes-text-muted] flex items-center h-full">
           <span className="opacity-50">{'>'} Waiting for output...</span>
           <span className="animate-pulse ml-0.5">_</span>
         </div>

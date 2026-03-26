@@ -1,8 +1,8 @@
-# ARES Agent
+# Hermes
 
 Run a fleet of AI coding agents in parallel — each in its own isolated git worktree, with real-time streaming, code review, and one-click merge.
 
-ARES is a self-hosted macOS desktop app that lets you orchestrate multiple AI agents (Claude Code, GPT, MiniMax) working simultaneously across your repos. Add a repository, spin up workspaces, assign tasks to different models, watch them work in real time, review the diffs, and merge to main.
+Hermes is a self-hosted macOS desktop app that lets you orchestrate multiple AI agents (Claude Code, GPT, MiniMax) working simultaneously across your repos. Add a repository, spin up workspaces, assign tasks to different models, watch them work in real time, review the diffs, and merge to main.
 
 ## Features
 
@@ -64,7 +64,7 @@ App/
 ANTHROPIC_API_KEY=sk-...     # For Claude Code CLI
 OPENAI_API_KEY=sk-...        # For GPT research agents
 MINIMAX_API_KEY=...          # For MiniMax general agents
-ARES_PORT=8765               # Backend port (default: 8765)
+HERMES_PORT=8765             # Backend port (default: 8765)
 ```
 
 ## API
@@ -84,7 +84,7 @@ ARES_PORT=8765               # Backend port (default: 8765)
 
 ## Inspiration
 
-ARES was inspired by [Conductor](https://www.conductor.build) — a fantastic app for running parallel Claude Code agents. ARES takes the same core concept and extends it with multi-model support (Claude + GPT + MiniMax), a unified cost tracking proxy, and a self-hosted architecture with no cloud dependency.
+Hermes was inspired by [Conductor](https://www.conductor.build) — a fantastic app for running parallel Claude Code agents. Hermes takes the same core concept and extends it with multi-model support (Claude + GPT + MiniMax), a unified cost tracking proxy, and a self-hosted architecture with no cloud dependency.
 
 ## License
 

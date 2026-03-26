@@ -43,7 +43,7 @@ export default function App() {
   const showWorkspace = mode === 'workspace' && selectedWorkspaceId;
 
   return (
-    <div className="flex h-full w-full bg-[--color-ares-bg]">
+    <div className="flex h-full w-full bg-[--color-hermes-bg]">
       {/* Left Sidebar */}
       {sidebarOpen && <Sidebar />}
 

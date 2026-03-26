@@ -322,12 +322,12 @@ app.get('*', (req, res) => {
 });
 
 // ============ START ============
-const PORT = process.env.ARES_PORT || 8765;
+const PORT = process.env.HERMES_PORT || 8765;
 
 function start() {
   return new Promise((resolve) => {
     const server = app.listen(PORT, () => {
-      console.log(`ARES Agent v3 running on http://localhost:${PORT}`);
+      console.log(`Hermes running on http://localhost:${PORT}`);
       resolve(server);
     });
   });
@@ -335,7 +335,7 @@ function start() {
 
 // Graceful shutdown
 process.on('SIGINT', () => {
-  console.log('[ARES] Shutting down...');
+  console.log('[Hermes] Shutting down...');
   for (const [id, agent] of activeAgents) {
     agent.stop();
   }

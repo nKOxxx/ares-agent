@@ -85,11 +85,11 @@ class MinimaxAgent extends BaseAgent {
 
       // Save output to workspace
       if (fullOutput && this.worktreePath) {
-        const outputDir = path.join(this.worktreePath, '.ares-output');
+        const outputDir = path.join(this.worktreePath, '.hermes-output');
         fs.mkdirSync(outputDir, { recursive: true });
         const filename = `minimax-${Date.now()}.md`;
         fs.writeFileSync(path.join(outputDir, filename), `# Task: ${this.task}\n\n${fullOutput}`);
-        this._onOutput('system', `Output saved to .ares-output/${filename}`);
+        this._onOutput('system', `Output saved to .hermes-output/${filename}`);
       }
 
       this._onOutput('result', fullOutput);

@@ -13,25 +13,25 @@ function formatElapsed(startedAt: string): string {
 }
 
 const modelBadgeColors: Record<string, string> = {
-  claude: 'bg-[--color-ares-accent-dim] text-[--color-ares-accent]',
+  claude: 'bg-[--color-hermes-accent-dim] text-[--color-hermes-accent]',
   gpt: 'bg-green-400/15 text-green-400',
   minimax: 'bg-violet-400/15 text-violet-400',
 };
 
 const statusDotColors: Record<string, string> = {
-  running: 'bg-[--color-ares-yellow] animate-pulse',
-  completed: 'bg-[--color-ares-green]',
-  failed: 'bg-[--color-ares-red]',
-  reviewing: 'bg-[--color-ares-accent]',
-  idle: 'bg-[--color-ares-text-muted]',
+  running: 'bg-[--color-hermes-yellow] animate-pulse',
+  completed: 'bg-[--color-hermes-green]',
+  failed: 'bg-[--color-hermes-red]',
+  reviewing: 'bg-[--color-hermes-accent]',
+  idle: 'bg-[--color-hermes-text-muted]',
 };
 
 const statusBorderColors: Record<string, string> = {
-  running: 'border-[--color-ares-yellow]/30',
-  completed: 'border-[--color-ares-green]/20',
-  failed: 'border-[--color-ares-red]/20',
-  reviewing: 'border-[--color-ares-accent]/30',
-  idle: 'border-[--color-ares-border]',
+  running: 'border-[--color-hermes-yellow]/30',
+  completed: 'border-[--color-hermes-green]/20',
+  failed: 'border-[--color-hermes-red]/20',
+  reviewing: 'border-[--color-hermes-accent]/30',
+  idle: 'border-[--color-hermes-border]',
 };
 
 /* ── main component ───────────────────────────────────────────── */
@@ -60,22 +60,22 @@ export default function Dashboard() {
     <div className="flex-1 flex flex-col h-full overflow-hidden">
       {/* Header */}
       <div className="px-6 pt-6 pb-4">
-        <h1 className="text-lg font-semibold text-[--color-ares-text] mb-1">ARES Dashboard</h1>
-        <p className="text-[13px] text-[--color-ares-text-muted]">Overview of all workspaces and agent activity</p>
+        <h1 className="text-lg font-semibold text-[--color-hermes-text] mb-1">Hermes Dashboard</h1>
+        <p className="text-[13px] text-[--color-hermes-text-muted]">Overview of all workspaces and agent activity</p>
       </div>
 
       {/* Stats bar */}
       <div className="grid grid-cols-4 gap-3 px-6 pb-4">
-        <StatCard label="Running" value={running} color="text-[--color-ares-yellow]" />
-        <StatCard label="Completed" value={completed} color="text-[--color-ares-green]" />
-        <StatCard label="Failed" value={failed} color="text-[--color-ares-red]" />
-        <StatCard label="Total Cost" value={`$${totalCost.toFixed(2)}`} color="text-[--color-ares-accent]" />
+        <StatCard label="Running" value={running} color="text-[--color-hermes-yellow]" />
+        <StatCard label="Completed" value={completed} color="text-[--color-hermes-green]" />
+        <StatCard label="Failed" value={failed} color="text-[--color-hermes-red]" />
+        <StatCard label="Total Cost" value={`$${totalCost.toFixed(2)}`} color="text-[--color-hermes-accent]" />
       </div>
 
       {/* Grid */}
       <div className="flex-1 overflow-y-auto px-6 pb-6">
         {workspaces.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-[--color-ares-text-muted]">
+          <div className="flex flex-col items-center justify-center h-full text-[--color-hermes-text-muted]">
             <div className="text-4xl mb-3 opacity-20">&#9672;</div>
             <div className="text-sm">No workspaces yet. Add a repo and create a workspace.</div>
           </div>
@@ -85,14 +85,14 @@ export default function Dashboard() {
               const repo = repoMap.get(ws.repo_id);
               const run = activeRuns.find((r) => r.workspace_id === ws.id);
               const model = ws.model || run?.model || '';
-              const mColors = modelBadgeColors[model] || 'bg-[--color-ares-surface] text-[--color-ares-text-muted]';
+              const mColors = modelBadgeColors[model] || 'bg-[--color-hermes-surface] text-[--color-hermes-text-muted]';
               const isRunning = ws.status === 'running';
 
               return (
                 <button
                   key={ws.id}
                   onClick={() => selectWorkspace(ws.id)}
-                  className={`text-left p-4 rounded-xl border bg-[--color-ares-surface] hover:bg-[--color-ares-surface-hover] transition-all ${
+                  className={`text-left p-4 rounded-xl border bg-[--color-hermes-surface] hover:bg-[--color-hermes-surface-hover] transition-all ${
                     statusBorderColors[ws.status] || statusBorderColors.idle
                   } ${isRunning ? 'shadow-[0_0_20px_rgba(34,211,238,0.06)]' : ''}`}
                 >
@@ -100,7 +100,7 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <span className={`w-2 h-2 rounded-full flex-shrink-0 ${statusDotColors[ws.status] || statusDotColors.idle}`} />
-                      <span className="text-[12px] text-[--color-ares-text-secondary]">{repo?.name || 'unknown'}</span>
+                      <span className="text-[12px] text-[--color-hermes-text-secondary]">{repo?.name || 'unknown'}</span>
                     </div>
                     {model && (
                       <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${mColors}`}>
@@ -110,20 +110,20 @@ export default function Dashboard() {
                   </div>
 
                   {/* Name */}
-                  <h3 className="text-[13px] font-medium text-[--color-ares-text] mb-1 truncate">
+                  <h3 className="text-[13px] font-medium text-[--color-hermes-text] mb-1 truncate">
                     {ws.name}
                   </h3>
 
                   {/* Task preview */}
-                  <p className="text-[12px] text-[--color-ares-text-muted] line-clamp-2 mb-3 min-h-[2rem]">
+                  <p className="text-[12px] text-[--color-hermes-text-muted] line-clamp-2 mb-3 min-h-[2rem]">
                     {ws.task || run?.task || 'No task assigned'}
                   </p>
 
                   {/* Footer */}
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] text-[--color-ares-text-muted] capitalize">{ws.status}</span>
+                    <span className="text-[11px] text-[--color-hermes-text-muted] capitalize">{ws.status}</span>
                     {run?.started_at && (
-                      <span className="text-[11px] text-[--color-ares-text-muted]">
+                      <span className="text-[11px] text-[--color-hermes-text-muted]">
                         {formatElapsed(run.started_at)}
                       </span>
                     )}
@@ -150,8 +150,8 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className="bg-[--color-ares-surface] border border-[--color-ares-border] rounded-lg px-4 py-3">
-      <div className="text-[11px] text-[--color-ares-text-muted] mb-1 uppercase tracking-wide">{label}</div>
+    <div className="bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-lg px-4 py-3">
+      <div className="text-[11px] text-[--color-hermes-text-muted] mb-1 uppercase tracking-wide">{label}</div>
       <div className={`text-xl font-semibold ${color}`}>{value}</div>
     </div>
   );

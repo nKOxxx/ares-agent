@@ -85,11 +85,11 @@ class GptAgent extends BaseAgent {
 
       // Save research output to workspace as markdown
       if (fullOutput && this.worktreePath) {
-        const outputDir = path.join(this.worktreePath, '.ares-research');
+        const outputDir = path.join(this.worktreePath, '.hermes-research');
         fs.mkdirSync(outputDir, { recursive: true });
         const filename = `research-${Date.now()}.md`;
         fs.writeFileSync(path.join(outputDir, filename), `# Research: ${this.task}\n\n${fullOutput}`);
-        this._onOutput('system', `Research saved to .ares-research/${filename}`);
+        this._onOutput('system', `Research saved to .hermes-research/${filename}`);
       }
 
       this._onOutput('result', fullOutput);

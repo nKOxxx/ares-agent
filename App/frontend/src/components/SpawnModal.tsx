@@ -4,8 +4,8 @@ import { useUIStore } from '../stores/ui';
 import { useRepoStore } from '../stores/repo';
 
 const MODELS = [
-  { id: 'claude', label: 'Claude', badge: 'bg-[--color-ares-accent]' },
-  { id: 'gpt', label: 'GPT', badge: 'bg-[--color-ares-green]' },
+  { id: 'claude', label: 'Claude', badge: 'bg-[--color-hermes-accent]' },
+  { id: 'gpt', label: 'GPT', badge: 'bg-[--color-hermes-green]' },
   { id: 'minimax', label: 'MiniMax', badge: 'bg-violet-400' },
 ] as const;
 
@@ -51,14 +51,14 @@ export default function SpawnModal() {
       onClick={() => setOpen(false)}
     >
       <div
-        className="bg-[--color-ares-surface] border border-[--color-ares-border] rounded-xl w-full max-w-lg p-6 shadow-2xl"
+        className="bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-xl w-full max-w-lg p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-base font-semibold text-[--color-ares-text] mb-5">Spawn Agent</h2>
+        <h2 className="text-base font-semibold text-[--color-hermes-text] mb-5">Spawn Agent</h2>
 
         {/* Model selector */}
         <div className="mb-5">
-          <label className="text-[12px] text-[--color-ares-text-secondary] mb-2 block font-medium uppercase tracking-wide">
+          <label className="text-[12px] text-[--color-hermes-text-secondary] mb-2 block font-medium uppercase tracking-wide">
             Model
           </label>
           <div className="flex gap-2">
@@ -69,7 +69,7 @@ export default function SpawnModal() {
                 className={`px-4 py-2 rounded-lg text-[13px] font-medium transition-all border ${
                   model === m.id
                     ? `${m.badge} text-black border-transparent`
-                    : 'bg-[--color-ares-bg] border-[--color-ares-border] text-[--color-ares-text-secondary] hover:border-[--color-ares-text-muted]'
+                    : 'bg-[--color-hermes-bg] border-[--color-hermes-border] text-[--color-hermes-text-secondary] hover:border-[--color-hermes-text-muted]'
                 }`}
               >
                 {m.label}
@@ -80,14 +80,14 @@ export default function SpawnModal() {
 
         {/* Task input */}
         <div className="mb-5">
-          <label className="text-[12px] text-[--color-ares-text-secondary] mb-2 block font-medium uppercase tracking-wide">
+          <label className="text-[12px] text-[--color-hermes-text-secondary] mb-2 block font-medium uppercase tracking-wide">
             Task
           </label>
           <textarea
             value={task}
             onChange={(e) => setTask(e.target.value)}
             placeholder="Describe what the agent should do..."
-            className="w-full h-32 bg-[--color-ares-bg] border border-[--color-ares-border] rounded-lg p-3 text-[13px] text-[--color-ares-text] placeholder-[--color-ares-text-muted] resize-none focus:outline-none focus:border-[--color-ares-accent]/50 transition-colors"
+            className="w-full h-32 bg-[--color-hermes-bg] border border-[--color-hermes-border] rounded-lg p-3 text-[13px] text-[--color-hermes-text] placeholder-[--color-hermes-text-muted] resize-none focus:outline-none focus:border-[--color-hermes-accent]/50 transition-colors"
             autoFocus
           />
         </div>
@@ -95,8 +95,8 @@ export default function SpawnModal() {
         {/* Model-specific options */}
         {model === 'claude' ? (
           <div className="mb-6">
-            <label className="text-[12px] text-[--color-ares-text-secondary] mb-2 block">
-              Max Turns: <span className="text-[--color-ares-text]">{maxTurns}</span>
+            <label className="text-[12px] text-[--color-hermes-text-secondary] mb-2 block">
+              Max Turns: <span className="text-[--color-hermes-text]">{maxTurns}</span>
             </label>
             <input
               type="range"
@@ -104,13 +104,13 @@ export default function SpawnModal() {
               max={100}
               value={maxTurns}
               onChange={(e) => setMaxTurns(Number(e.target.value))}
-              className="w-full accent-[--color-ares-accent]"
+              className="w-full accent-[--color-hermes-accent]"
             />
           </div>
         ) : (
           <div className="mb-6">
-            <label className="text-[12px] text-[--color-ares-text-secondary] mb-2 block">
-              Temperature: <span className="text-[--color-ares-text]">{temperature.toFixed(1)}</span>
+            <label className="text-[12px] text-[--color-hermes-text-secondary] mb-2 block">
+              Temperature: <span className="text-[--color-hermes-text]">{temperature.toFixed(1)}</span>
             </label>
             <input
               type="range"
@@ -119,7 +119,7 @@ export default function SpawnModal() {
               step={0.1}
               value={temperature}
               onChange={(e) => setTemperature(Number(e.target.value))}
-              className="w-full accent-[--color-ares-accent]"
+              className="w-full accent-[--color-hermes-accent]"
             />
           </div>
         )}
@@ -128,14 +128,14 @@ export default function SpawnModal() {
         <div className="flex justify-end gap-3">
           <button
             onClick={() => setOpen(false)}
-            className="px-4 py-2 text-[13px] text-[--color-ares-text-secondary] hover:text-[--color-ares-text] transition-colors"
+            className="px-4 py-2 text-[13px] text-[--color-hermes-text-secondary] hover:text-[--color-hermes-text] transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleSpawn}
             disabled={!task.trim() || spawning}
-            className="px-6 py-2 bg-[--color-ares-accent] text-black text-[13px] font-medium rounded-lg hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="px-6 py-2 bg-[--color-hermes-accent] text-black text-[13px] font-medium rounded-lg hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             {spawning ? 'Spawning...' : 'Spawn'}
           </button>

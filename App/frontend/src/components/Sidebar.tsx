@@ -26,7 +26,7 @@ function HomeIcon() {
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      className={`w-3 h-3 text-[--color-ares-text-muted] transition-transform duration-150 ${open ? 'rotate-90' : ''}`}
+      className={`w-3 h-3 text-[--color-hermes-text-muted] transition-transform duration-150 ${open ? 'rotate-90' : ''}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -66,11 +66,11 @@ function SettingsIcon() {
 
 function StatusIndicator({ status }: { status: string }) {
   const colors: Record<string, string> = {
-    running: 'text-[--color-ares-yellow]',
-    completed: 'text-[--color-ares-green]',
-    failed: 'text-[--color-ares-red]',
-    reviewing: 'text-[--color-ares-accent]',
-    idle: 'text-[--color-ares-text-muted]',
+    running: 'text-[--color-hermes-yellow]',
+    completed: 'text-[--color-hermes-green]',
+    failed: 'text-[--color-hermes-red]',
+    reviewing: 'text-[--color-hermes-accent]',
+    idle: 'text-[--color-hermes-text-muted]',
   };
   return (
     <GitBranchIcon className={`w-3.5 h-3.5 flex-shrink-0 ${colors[status] || colors.idle}`} />
@@ -82,9 +82,9 @@ function StatusIndicator({ status }: { status: string }) {
 function DiffStatsPill({ additions, deletions }: { additions: number; deletions: number }) {
   if (additions === 0 && deletions === 0) return null;
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-mono rounded-full px-1.5 py-0.5 bg-[--color-ares-surface]">
-      {additions > 0 && <span className="text-[--color-ares-green]">+{additions}</span>}
-      {deletions > 0 && <span className="text-[--color-ares-red]">-{deletions}</span>}
+    <span className="inline-flex items-center gap-1 text-[10px] font-mono rounded-full px-1.5 py-0.5 bg-[--color-hermes-surface]">
+      {additions > 0 && <span className="text-[--color-hermes-green]">+{additions}</span>}
+      {deletions > 0 && <span className="text-[--color-hermes-red]">-{deletions}</span>}
     </span>
   );
 }
@@ -107,24 +107,24 @@ function WorkspaceItem({
       onClick={onSelect}
       className={`w-full text-left flex items-start gap-2.5 px-3 py-2 mx-1 rounded-md transition-colors group ${
         selected
-          ? 'bg-[--color-ares-surface-hover]'
-          : 'hover:bg-[--color-ares-surface]/60'
+          ? 'bg-[--color-hermes-surface-hover]'
+          : 'hover:bg-[--color-hermes-surface]/60'
       }`}
     >
       <StatusIndicator status={ws.status} />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className={`text-[13px] truncate ${selected ? 'text-[--color-ares-text]' : 'text-[--color-ares-text-secondary]'}`}>
+          <span className={`text-[13px] truncate ${selected ? 'text-[--color-hermes-text]' : 'text-[--color-hermes-text-secondary]'}`}>
             {ws.name}
           </span>
           <DiffStatsPill additions={0} deletions={0} />
         </div>
-        <div className="text-[11px] text-[--color-ares-text-muted] mt-0.5">
+        <div className="text-[11px] text-[--color-hermes-text-muted] mt-0.5">
           {ws.branch || 'main'} · {timeAgo(ws.updated_at || ws.created_at)}
         </div>
       </div>
       {shortcut && (
-        <span className="text-[10px] text-[--color-ares-text-muted] font-mono bg-[--color-ares-surface] rounded px-1 py-0.5 flex-shrink-0 mt-0.5">
+        <span className="text-[10px] text-[--color-hermes-text-muted] font-mono bg-[--color-hermes-surface] rounded px-1 py-0.5 flex-shrink-0 mt-0.5">
           {'\u2318'}{shortcut}
         </span>
       )}
@@ -159,11 +159,11 @@ function RepoSection({
     <div className="mb-1">
       {/* Repo header */}
       <div
-        className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-[--color-ares-surface]/40 transition-colors group"
+        className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-[--color-hermes-surface]/40 transition-colors group"
         onClick={onToggle}
       >
         <ChevronIcon open={expanded} />
-        <span className="text-[13px] font-semibold text-[--color-ares-text] truncate flex-1">
+        <span className="text-[13px] font-semibold text-[--color-hermes-text] truncate flex-1">
           {repo.name}
         </span>
         <button
@@ -171,7 +171,7 @@ function RepoSection({
             e.stopPropagation();
             onDeleteRepo();
           }}
-          className="opacity-0 group-hover:opacity-100 text-[--color-ares-text-muted] hover:text-[--color-ares-red] transition-all"
+          className="opacity-0 group-hover:opacity-100 text-[--color-hermes-text-muted] hover:text-[--color-hermes-red] transition-all"
           title="Remove repo"
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -194,7 +194,7 @@ function RepoSection({
           ))}
           <button
             onClick={onNewWorkspace}
-            className="flex items-center gap-2 px-3 py-1.5 mx-1 text-[12px] text-[--color-ares-text-muted] hover:text-[--color-ares-accent] transition-colors rounded-md hover:bg-[--color-ares-surface]/40"
+            className="flex items-center gap-2 px-3 py-1.5 mx-1 text-[12px] text-[--color-hermes-text-muted] hover:text-[--color-hermes-accent] transition-colors rounded-md hover:bg-[--color-hermes-surface]/40"
           >
             <PlusIcon />
             New workspace
@@ -220,7 +220,7 @@ function ModalOverlay({
       onClick={onClose}
     >
       <div
-        className="bg-[--color-ares-surface] border border-[--color-ares-border] rounded-xl p-5 w-80 shadow-2xl"
+        className="bg-[--color-hermes-surface] border border-[--color-hermes-border] rounded-xl p-5 w-80 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
@@ -314,16 +314,16 @@ export default function Sidebar() {
   let shortcutCounter = 0;
 
   return (
-    <div className="w-[260px] h-full bg-[--color-ares-sidebar] border-r border-[--color-ares-border-subtle] flex flex-col flex-shrink-0">
+    <div className="w-[260px] h-full bg-[--color-hermes-sidebar] border-r border-[--color-hermes-border-subtle] flex flex-col flex-shrink-0">
       {/* Home link */}
       <button
         onClick={() => setMode('dashboard')}
-        className="flex items-center gap-2.5 px-4 py-3 text-[--color-ares-text-secondary] hover:text-[--color-ares-text] hover:bg-[--color-ares-surface]/40 transition-colors border-b border-[--color-ares-border-subtle]"
+        className="flex items-center gap-2.5 px-4 py-3 text-[--color-hermes-text-secondary] hover:text-[--color-hermes-text] hover:bg-[--color-hermes-surface]/40 transition-colors border-b border-[--color-hermes-border-subtle]"
       >
         <HomeIcon />
         <span className="text-[13px]">Home</span>
         {runningCount > 0 && (
-          <span className="ml-auto text-[10px] font-medium bg-[--color-ares-accent-dim] text-[--color-ares-accent] rounded-full px-1.5 py-0.5">
+          <span className="ml-auto text-[10px] font-medium bg-[--color-hermes-accent-dim] text-[--color-hermes-accent] rounded-full px-1.5 py-0.5">
             {runningCount}
           </span>
         )}
@@ -332,7 +332,7 @@ export default function Sidebar() {
       {/* Repos + Workspaces */}
       <div className="flex-1 overflow-y-auto py-2">
         {repos.length === 0 && (
-          <div className="px-4 py-8 text-center text-[--color-ares-text-muted] text-xs">
+          <div className="px-4 py-8 text-center text-[--color-hermes-text-muted] text-xs">
             No repos yet. Add one below.
           </div>
         )}
@@ -361,15 +361,15 @@ export default function Sidebar() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-[--color-ares-border-subtle] px-3 py-2.5 flex items-center gap-2">
+      <div className="border-t border-[--color-hermes-border-subtle] px-3 py-2.5 flex items-center gap-2">
         <button
           onClick={() => setShowAddRepo(true)}
-          className="flex items-center gap-2 flex-1 px-2 py-1.5 text-[12px] text-[--color-ares-text-muted] hover:text-[--color-ares-text] hover:bg-[--color-ares-surface]/60 rounded-md transition-colors"
+          className="flex items-center gap-2 flex-1 px-2 py-1.5 text-[12px] text-[--color-hermes-text-muted] hover:text-[--color-hermes-text] hover:bg-[--color-hermes-surface]/60 rounded-md transition-colors"
         >
           <PlusIcon />
           Add repository
         </button>
-        <button className="p-1.5 text-[--color-ares-text-muted] hover:text-[--color-ares-text] hover:bg-[--color-ares-surface]/60 rounded-md transition-colors">
+        <button className="p-1.5 text-[--color-hermes-text-muted] hover:text-[--color-hermes-text] hover:bg-[--color-hermes-surface]/60 rounded-md transition-colors">
           <SettingsIcon />
         </button>
       </div>
@@ -377,27 +377,27 @@ export default function Sidebar() {
       {/* Add Repo Modal */}
       {showAddRepo && (
         <ModalOverlay onClose={() => setShowAddRepo(false)}>
-          <h3 className="text-sm font-semibold text-[--color-ares-text] mb-3">Add Repository</h3>
+          <h3 className="text-sm font-semibold text-[--color-hermes-text] mb-3">Add Repository</h3>
           <input
             type="text"
             value={repoUrl}
             onChange={(e) => setRepoUrl(e.target.value)}
             placeholder="https://github.com/user/repo"
-            className="w-full bg-[--color-ares-bg] border border-[--color-ares-border] rounded-lg px-3 py-2 text-sm text-[--color-ares-text] placeholder-[--color-ares-text-muted] focus:outline-none focus:border-[--color-ares-accent]/50 mb-3"
+            className="w-full bg-[--color-hermes-bg] border border-[--color-hermes-border] rounded-lg px-3 py-2 text-sm text-[--color-hermes-text] placeholder-[--color-hermes-text-muted] focus:outline-none focus:border-[--color-hermes-accent]/50 mb-3"
             autoFocus
             onKeyDown={(e) => e.key === 'Enter' && handleAddRepo()}
           />
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setShowAddRepo(false)}
-              className="px-3 py-1.5 text-xs text-[--color-ares-text-secondary] hover:text-[--color-ares-text]"
+              className="px-3 py-1.5 text-xs text-[--color-hermes-text-secondary] hover:text-[--color-hermes-text]"
             >
               Cancel
             </button>
             <button
               onClick={handleAddRepo}
               disabled={!repoUrl.trim() || addingRepo}
-              className="px-4 py-1.5 text-xs bg-[--color-ares-accent] text-black font-medium rounded-lg hover:brightness-110 disabled:opacity-50"
+              className="px-4 py-1.5 text-xs bg-[--color-hermes-accent] text-black font-medium rounded-lg hover:brightness-110 disabled:opacity-50"
             >
               {addingRepo ? 'Adding...' : 'Add'}
             </button>
@@ -408,27 +408,27 @@ export default function Sidebar() {
       {/* New Workspace Modal */}
       {newWsRepoId && (
         <ModalOverlay onClose={() => setNewWsRepoId(null)}>
-          <h3 className="text-sm font-semibold text-[--color-ares-text] mb-3">New Workspace</h3>
+          <h3 className="text-sm font-semibold text-[--color-hermes-text] mb-3">New Workspace</h3>
           <input
             type="text"
             value={wsName}
             onChange={(e) => setWsName(e.target.value)}
             placeholder="workspace-name"
-            className="w-full bg-[--color-ares-bg] border border-[--color-ares-border] rounded-lg px-3 py-2 text-sm text-[--color-ares-text] placeholder-[--color-ares-text-muted] focus:outline-none focus:border-[--color-ares-accent]/50 mb-3"
+            className="w-full bg-[--color-hermes-bg] border border-[--color-hermes-border] rounded-lg px-3 py-2 text-sm text-[--color-hermes-text] placeholder-[--color-hermes-text-muted] focus:outline-none focus:border-[--color-hermes-accent]/50 mb-3"
             autoFocus
             onKeyDown={(e) => e.key === 'Enter' && handleAddWorkspace()}
           />
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setNewWsRepoId(null)}
-              className="px-3 py-1.5 text-xs text-[--color-ares-text-secondary] hover:text-[--color-ares-text]"
+              className="px-3 py-1.5 text-xs text-[--color-hermes-text-secondary] hover:text-[--color-hermes-text]"
             >
               Cancel
             </button>
             <button
               onClick={handleAddWorkspace}
               disabled={!wsName.trim() || addingWs}
-              className="px-4 py-1.5 text-xs bg-[--color-ares-accent] text-black font-medium rounded-lg hover:brightness-110 disabled:opacity-50"
+              className="px-4 py-1.5 text-xs bg-[--color-hermes-accent] text-black font-medium rounded-lg hover:brightness-110 disabled:opacity-50"
             >
               {addingWs ? 'Creating...' : 'Create'}
             </button>

@@ -3,10 +3,10 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 
-const DATA_DIR = path.join(os.homedir(), 'Library', 'Application Support', 'ares-agent');
+const DATA_DIR = path.join(os.homedir(), 'Library', 'Application Support', 'hermes');
 fs.mkdirSync(DATA_DIR, { recursive: true });
 
-const DB_PATH = path.join(DATA_DIR, 'ares.db');
+const DB_PATH = path.join(DATA_DIR, 'hermes.db');
 const db = new Database(DB_PATH);
 
 // Enable WAL mode for better concurrent performance
