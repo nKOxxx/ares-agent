@@ -82,6 +82,16 @@ HERMES_PORT=8765             # Backend port (default: 8765)
 | GET | /api/proxy/usage | Cost & token tracking |
 | GET | /events | SSE stream |
 
+## Roadmap
+
+- **Multi-feature parallel build** — Orchestrate N agents writing independent modules to the same repo, then auto-merge and deploy. Use case: "Build 10 new features across a codebase simultaneously, each agent in its own worktree, with conflict resolution and single-push deploy."
+- **Task templates** — Pre-built task definitions (e.g., "Add feature with JS + CSS + HTML wiring") that agents can execute with minimal prompting
+- **Agent-to-agent handoff** — Let one agent's output feed into another's input (e.g., research agent → implementation agent → test agent)
+- **Deployment hooks** — Auto-deploy to Vercel/Netlify/etc. after successful merge
+- **Cost budgets** — Set per-task or per-session cost limits, auto-pause agents approaching budget
+- **Diff review queue** — Batch review mode for reviewing outputs from many agents at once
+- **CI integration** — Run tests automatically on each agent's worktree before allowing merge
+
 ## Inspiration
 
 Hermes was inspired by [Conductor](https://www.conductor.build) — a fantastic app for running parallel Claude Code agents. Hermes takes the same core concept and extends it with multi-model support (Claude + GPT + MiniMax), a unified cost tracking proxy, and a self-hosted architecture with no cloud dependency.
